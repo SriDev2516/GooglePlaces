@@ -1,8 +1,76 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Google Places";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+
+    <div class="form-group col-md-6">
+        <div>
+            <input class="form-control" id="txtLocation" />
+        </div>
+
+        <div class="mt-3">
+            <textarea class="form-control" id="txtIsBuilding"></textarea>
+        </div>
+
+        <div class="mt-3">
+            <button class="btn btn-danger" onclick="clearTheTextLocation()">Clear</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA918tH8724ixrmKEn1M-S6DFxmQCJv2gM"></script>
+    <script type="text/javascript">
+        google.maps.event.addDomListener(window, 'load', function () {
+            var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
+            const place = places.getPlace();
+            places.addListener("place_changed", () => {
+                var isBuilding = false;
+                var addressComponent = places.getPlace().address_components;
+                console.log(addressComponent.length);
+                console.log("*************");
+                addressComponent.forEach((place) => {
+                    console.log("*************");
+
+                    console.log(place.types);
+                    if (place.types && (place.types).indexOf('premise') != -1) {
+                        isBuilding = true;
+                        return;
+                    }
+                });
+
+                if (isBuilding) {
+                    document.getElementById('txtIsBuilding').value = 'This is a building.';
+                } else {
+                    document.getElementById('txtIsBuilding').value = 'This is not a building.';
+                }
+            });
+        });
+
+        function clearTheTextLocation() {
+            document.getElementById("txtLocation").value = '';
+            document.getElementById('txtIsBuilding').value = '';
+
+        }
+
+        function setDetails() {
+
+        }
+    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function(){
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+</body>
+</html>

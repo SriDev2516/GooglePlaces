@@ -1,7 +1,6 @@
 ﻿@{
     //Layout = null;
-}
- 
+} 
 <!DOCTYPE html>
  
 <html>
@@ -10,29 +9,23 @@
     <title>Index</title>
 </head>
 <body>
-   
 
-    <div class="form-group">
+
+    <div class="form-group col-md-6">
         <div>
             <input class="form-control" id="txtLocation" />
         </div>
-        <br/>
-        <div>
+
+        <div class="mt-3">
+            <textarea class="form-control" id="txtIsBuilding"></textarea>
+        </div>
+
+        <div class="mt-3">
             <button class="btn btn-danger" onclick="clearTheTextLocation()">Clear</button>
         </div>
     </div>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA918tH8724ixrmKEn1M-S6DFxmQCJv2gM"></script>
-    <script type="text/javascript">
-        google.maps.event.addDomListener(window, 'load', function () {
-            var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
-            
-        });
-
-        function clearTheTextLocation(){
-            var txt = document.getElementById("txtLocation");
-            txt.value = '';
-        }
-    </script>
+    <script src ="~/customJs/index.js"></script>
     @if (ViewBag.Message != null)
     {
         <script type="text/javascript">
