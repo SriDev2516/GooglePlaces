@@ -40,7 +40,9 @@
                     console.log("*************");
 
                     console.log(place.types);
-                    if (place.types && (place.types).indexOf('premise') != -1) {
+                    if (place.types &&
+                        ((place.types).indexOf('subpremise') != -1) ||
+                        ((place.types).indexOf('premise') != -1)){
                         isBuilding = true;
                         return;
                     }
